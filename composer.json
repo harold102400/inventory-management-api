@@ -1,0 +1,15 @@
+{
+    "name": "harold.montesdeoca/articulos-api",
+    "description": "API de articulos",
+    "autoload": {
+        "psr-4": {
+            "Api\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Harold"
+        }
+    ],
+    "require": {}
+}
