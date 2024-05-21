@@ -11,5 +11,7 @@
             "name": "Harold"
         }
     ],
-    "require": {}
+    "require": {
+        "bramus/router": "~1.6"
+    }
 }
