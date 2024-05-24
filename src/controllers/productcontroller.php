@@ -27,8 +27,16 @@ class ProductController {
                 "marca" => $data['marca'],
                 "precio" => $data['precio']
             ];
-
             $products = new ProductsModels();
+            $existingProduct = $products->getCodeFromDb($data["codigo"]);
+            if ($existingProduct) {
+                $error = [
+                    "status" => 404,
+                    "errorMessage" => "Hubo un error interno jhajaj"
+                ];
+                echo json_encode($error, http_response_code($error["status"]));
+                return;
+            }
             $products->create($allData);
             echo json_encode(204);
         } catch (\Throwable $error) {

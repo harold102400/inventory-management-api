@@ -44,6 +44,14 @@ class ProductsModels {
         }
     }
 
+    public function getCodeFromDB(string $code)
+    {
+        $sql = "SELECT * FROM $this->tableName WHERE codigo = :codigo";
+        $result = $this->conn->prepare($sql);
+        $result->execute([":codigo" => $code]);
+        return $result->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getProduct($id)
     {
         $sql = "SELECT * FROM $this->tableName WHERE id=:id";
