@@ -1,28 +1,42 @@
 <?php
 
+use Api\controllers\ProductController;
+
 $router = new \Bramus\Router\Router();
 
 
-$router->get('/api', function(){});
+$router->get('/api', function(){
+    echo "welcome";
+});
 
 $router->get('/api/products', function() {
-    echo "All products";
+    $products = new ProductController();
+    $products->getAllProducts();
 });
 
 $router->get('/api/product/{id}', function($id) {
-    echo "Get one product $id";
+    $product = new ProductController();
+    $product->getProduct($id);
 });
 
 $router->post('/api/product', function() {
-    echo "Create product";
+    $json = file_get_contents('php://input');
+    $data = json_encode($json, true);
+    $product = new ProductController();
+    $product->create($data);
+    //stdclass investigar//
 });
 
 $router->put('/api/product/{id}', function($id) {
-    echo "Update product with id $id";
+    $json = file_get_contents('php://input');
+    $data = json_encode($json, true);
+    $product = new ProductController();
+    $product->update($id, $data);
 });
 
 $router->delete('/api/product/{id}', function($id) {
-    echo "Delete product with id $id";
+    $product = new ProductController();
+    $product->delete($id);
 });
 
 $router->set404(function() {
