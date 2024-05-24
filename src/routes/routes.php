@@ -21,7 +21,7 @@ $router->get('/api/product/{id}', function($id) {
 
 $router->post('/api/product', function() {
     $json = file_get_contents('php://input');
-    $data = json_encode($json, true);
+    $data = json_decode($json, true);
     $product = new ProductController();
     $product->create($data);
     //stdclass investigar//
@@ -29,7 +29,7 @@ $router->post('/api/product', function() {
 
 $router->put('/api/product/{id}', function($id) {
     $json = file_get_contents('php://input');
-    $data = json_encode($json, true);
+    $data = json_decode($json, true);
     $product = new ProductController();
     $product->update($id, $data);
 });
@@ -42,7 +42,7 @@ $router->delete('/api/product/{id}', function($id) {
 $router->set404(function() {
     $error = [
         "status" => 404,
-        "errorMessage" => "Hubo un error interno jhajaj"
+        "errorMessage" => "Esta ruta no existe!"
     ];
     echo json_encode($error, http_response_code($error["status"])); 
 });

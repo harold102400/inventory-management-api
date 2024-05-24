@@ -11,7 +11,7 @@ class ProductController {
         try {
             $products = new ProductsModels();
             $data = $products->getAllProducts();
-            json_encode($data);
+            echo json_encode($data);
         } catch (\Throwable $error) {
             var_dump($error);
         }
@@ -32,15 +32,18 @@ class ProductController {
             if ($existingProduct) {
                 $error = [
                     "status" => 404,
-                    "errorMessage" => "Hubo un error interno jhajaj"
+                    "errorMessage" => "El codigo de este producto esta repetido!"
                 ];
                 echo json_encode($error, http_response_code($error["status"]));
                 return;
             }
+            $status = [
+                "status" => 204,
+            ];
             $products->create($allData);
-            echo json_encode(204);
+            echo json_encode($status, http_response_code($status["status"]));
         } catch (\Throwable $error) {
-            var_dump($error);
+            echo $error;
         }
     }
 
@@ -53,7 +56,11 @@ class ProductController {
                 echo json_encode($product);
                 return;
             } else {
-                echo json_encode(404);
+                $status = [
+                    "status" => 404,
+                    "msg" => "el producto con el id $id no existe!"
+                ];
+                echo json_encode($status["msg"], http_response_code($status["status"]));
             }
         } catch (\Throwable $error) {
             var_dump($error);
@@ -74,7 +81,7 @@ class ProductController {
 
             $products = new ProductsModels();
             $products->update($allData);
-            echo json_encode(204);
+            echo json_encode(http_response_code(204));
         } catch (\Throwable $error) {
             var_dump($error);
         }
@@ -84,8 +91,8 @@ class ProductController {
     {
         try {
             $product = new ProductsModels();
-            $product->update($id);
-            echo json_encode(204);
+            $product->delete($id);
+            echo json_encode(http_response_code(204));
         } catch (\Throwable $error) {
             var_dump($error);
         }

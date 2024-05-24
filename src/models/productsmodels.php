@@ -83,7 +83,7 @@ class ProductsModels {
         }
     }
 
-    public function edit($id)
+    public function delete($id)
     {
         $sql = "DELETE FROM $this->tableName WHERE id=:id";
         $result = $this->conn->prepare($sql);
