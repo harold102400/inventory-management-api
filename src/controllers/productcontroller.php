@@ -27,6 +27,14 @@ class ProductController {
                 "marca" => $data['marca'],
                 "precio" => $data['precio']
             ];
+            if ($allData["precio"] < 0) {
+                $error = [
+                    "status" => 400,
+                    "errorMessage" => "El precio no puede ser negativo."
+                ];
+                echo json_encode($error["errorMessage"], http_response_code($error["status"]));
+                return;
+            }
             $products = new ProductsModels();
             $existingProduct = $products->getCodeFromDb($data["codigo"]);
             if ($existingProduct) {
