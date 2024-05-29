@@ -3,6 +3,7 @@
 
 namespace Api\controllers;
 
+use Api\config\ErrorLog;
 use Api\models\ProductsModels;
 
 class ProductController {
@@ -13,7 +14,8 @@ class ProductController {
             $data = $products->getAllProducts();
             echo json_encode($data);
         } catch (\Throwable $error) {
-            var_dump($error);
+            ErrorLog::showErrors();
+            error_log("Error message n" . $error);
         }
     }
 
@@ -51,7 +53,8 @@ class ProductController {
             $products->create($allData);
             echo json_encode($status, http_response_code($status["status"]));
         } catch (\Throwable $error) {
-            echo $error;
+            ErrorLog::showErrors();
+            error_log("Error message n" . $error);
         }
     }
 
@@ -71,7 +74,8 @@ class ProductController {
                 echo json_encode($status["msg"], http_response_code($status["status"]));
             }
         } catch (\Throwable $error) {
-            var_dump($error);
+            ErrorLog::showErrors();
+            error_log("Error message n" . $error);
         }
     }
 
@@ -91,7 +95,8 @@ class ProductController {
             $products->update($allData);
             echo json_encode(http_response_code(204));
         } catch (\Throwable $error) {
-            var_dump($error);
+            ErrorLog::showErrors();
+            error_log("Error message n" . $error);
         }
     }
 
@@ -102,7 +107,8 @@ class ProductController {
             $product->delete($id);
             echo json_encode(http_response_code(204));
         } catch (\Throwable $error) {
-            var_dump($error);
+            ErrorLog::showErrors();
+            error_log("Error message n" . $error);
         }
     }
 
