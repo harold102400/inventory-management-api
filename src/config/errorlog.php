@@ -3,6 +3,7 @@
 
 namespace Api\config;
 
+date_default_timezone_set('America/Santo_domingo');
 
 class ErrorLog {
     public static function showErrors()
