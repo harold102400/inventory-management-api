@@ -1,5 +1,6 @@
 <?php
 
+use Api\config\HttpResponses;
 use Api\controllers\ProductController;
 
 $router = new \Bramus\Router\Router();
@@ -14,12 +15,12 @@ $router->get('/api/products', function() {
     $products->getAllProducts();
 });
 
-$router->get('/api/product/{id}', function($id) {
+$router->get('/api/products/{id}', function($id) {
     $product = new ProductController();
     $product->getProduct($id);
 });
 
-$router->post('/api/product', function() {
+$router->post('/api/products', function() {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     $product = new ProductController();
@@ -27,24 +28,20 @@ $router->post('/api/product', function() {
     //stdclass investigar//
 });
 
-$router->put('/api/product/{id}', function($id) {
+$router->put('/api/products/{id}', function($id) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     $product = new ProductController();
     $product->update($id, $data);
 });
 
-$router->delete('/api/product/{id}', function($id) {
+$router->delete('/api/products/{id}', function($id) {
     $product = new ProductController();
     $product->delete($id);
 });
 
 $router->set404(function() {
-    $error = [
-        "status" => 404,
-        "errorMessage" => "Esta ruta no existe!"
-    ];
-    echo json_encode($error, http_response_code($error["status"])); 
+    echo HttpResponses::notFound("Esta ruta no existe!");
 });
 
 
