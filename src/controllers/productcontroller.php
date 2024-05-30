@@ -4,6 +4,7 @@
 namespace Api\controllers;
 
 use Api\config\ErrorLog;
+use Api\config\HttpResponses;
 use Api\models\ProductsModels;
 
 class ProductController {
@@ -14,6 +15,7 @@ class ProductController {
             $data = $products->getAllProducts();
             echo json_encode($data);
         } catch (\Throwable $error) {
+            echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();
             error_log("Error message n" . $error);
         }
@@ -30,29 +32,23 @@ class ProductController {
                 "precio" => $data['precio']
             ];
             if ($allData["precio"] < 0) {
-                $error = [
+                /* $error = [
                     "status" => 400,
                     "errorMessage" => "El precio no puede ser negativo."
-                ];
-                echo json_encode($error["errorMessage"], http_response_code($error["status"]));
+                ]; */
+                echo json_encode(HttpResponses::notFound("El precio no puede ser negativo."));
                 return;
             }
             $products = new ProductsModels();
             $existingProduct = $products->getCodeFromDb($data["codigo"]);
             if ($existingProduct) {
-                $error = [
-                    "status" => 404,
-                    "errorMessage" => "El codigo de este producto esta repetido!"
-                ];
-                echo json_encode($error, http_response_code($error["status"]));
+                echo json_encode(HttpResponses::notFound("El codigo de este producto esta repetido!"));
                 return;
             }
-            $status = [
-                "status" => 204,
-            ];
             $products->create($allData);
-            echo json_encode($status, http_response_code($status["status"]));
+            echo json_encode(HttpResponses::noContent());
         } catch (\Throwable $error) {
+            echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();
             error_log("Error message n" . $error);
         }
@@ -67,13 +63,10 @@ class ProductController {
                 echo json_encode($product);
                 return;
             } else {
-                $status = [
-                    "status" => 404,
-                    "msg" => "el producto con el id $id no existe!"
-                ];
-                echo json_encode($status["msg"], http_response_code($status["status"]));
+                echo json_encode(HttpResponses::notFound("el producto con el id $id no existe!"));
             }
         } catch (\Throwable $error) {
+            echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();
             error_log("Error message n" . $error);
         }
@@ -93,8 +86,9 @@ class ProductController {
 
             $products = new ProductsModels();
             $products->update($allData);
-            echo json_encode(http_response_code(204));
+            echo json_encode(HttpResponses::ok("Producto con codigo ".$data['codigo']. " ha sido actualizado"));
         } catch (\Throwable $error) {
+            echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();
             error_log("Error message n" . $error);
         }
@@ -105,8 +99,9 @@ class ProductController {
         try {
             $product = new ProductsModels();
             $product->delete($id);
-            echo json_encode(http_response_code(204));
+            echo json_encode(HttpResponses::noContent());
         } catch (\Throwable $error) {
+            echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();
             error_log("Error message n" . $error);
         }
