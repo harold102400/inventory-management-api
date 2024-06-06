@@ -45,8 +45,8 @@ class ProductController {
                 echo json_encode(HttpResponses::notFound("El codigo de este producto esta repetido!"));
                 return;
             }
-            $products->create($allData);
-            echo json_encode(HttpResponses::noContent());
+            $product = $products->create($allData);
+            echo json_encode(HttpResponses::created($product));
         } catch (\Throwable $error) {
             echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();

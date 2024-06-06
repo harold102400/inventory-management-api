@@ -26,7 +26,7 @@ class ProductsModels {
             echo "err";
         }
     }
-
+///Modificada funcion de crear para que devuelva el codigo que se ha creado
     public function create($data)
     {
         $sql = "INSERT INTO $this->tableName(codigo, nombre, tipo, marca, precio) VALUES (:codigo, :nombre, :tipo, :marca, :precio)";
@@ -39,6 +39,7 @@ class ProductsModels {
                 ":marca" => $data["marca"],
                 ":precio" => $data["precio"]
             ]);
+            return $this->getCodeFromDB($data["codigo"]);
         } else {
             echo "err";
         }

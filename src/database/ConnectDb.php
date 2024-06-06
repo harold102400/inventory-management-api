@@ -12,7 +12,7 @@ class ConnectDb
 
     private $host = 'localhost';
     private $user = 'root';
-    private $pass = '';
+    private $pass = 'root321';
     private $name = 'registros';
     private $port = '3306';
 
