@@ -21,9 +21,13 @@ class ProductsModels {
         $result = $this->conn->query($sql);
         if ($result) {
             $data = $result->fetchAll(PDO::FETCH_ASSOC);
-            return $data;
-        } else {
-            echo "err";
+            $countSql = "SELECT COUNT(*) as total FROM $this->tableName";
+            $result = $this->conn->query($countSql);
+            $totalRecords = $result->fetch(PDO::FETCH_ASSOC)['total'];
+            return [
+                'data' => $data,
+                'totalRecords' => $totalRecords
+            ];
         }
     }
 ///Modificada funcion de crear para que devuelva el codigo que se ha creado
