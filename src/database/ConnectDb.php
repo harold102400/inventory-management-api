@@ -3,6 +3,11 @@
 namespace Api\database;
 
 use \PDO;
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
+$dotenv->load();
+
 
 class ConnectDb
 {
@@ -10,14 +15,20 @@ class ConnectDb
     private static $instance = null;
     private $conn;
 
-    private $host = 'localhost';
-    private $user = 'root';
-    private $pass = '';
-    private $name = 'registros';
-    private $port = '3306';
+    private $host;
+    private $user;
+    private $pass;
+    private $name;
+    private $port;
 
     private function __construct()
     {
+        $this->host = $_ENV['HOST'];
+        $this->user = $_ENV['USER'];
+        $this->pass = $_ENV['PASSWORD'];
+        $this->name = $_ENV['DB'];
+        $this->port = $_ENV['PORT'];
+
         $this->conn = new PDO("mysql:host=$this->host;dbname=$this->name", $this->user, $this->pass);
     }
 
