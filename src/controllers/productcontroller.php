@@ -10,9 +10,20 @@ use Api\models\ProductsModels;
 class ProductController {
     public function getAllProducts()
     {
+        $page = (int)@$_GET['page'] ?? 1;
+        $limit = (int)@$_GET['limit'] ?? 10;
+        if ($page <= 0) {
+            $page = 1;
+        }
+        if ($limit <= 0) {
+           $limit = 10;
+        }
+        if ($limit > 100) {
+            $limit = 100;
+        }
         try {
             $products = new ProductsModels();
-            $data = $products->getAllProducts();
+            $data = $products->getAllProducts($page, $limit);
             echo json_encode($data);
         } catch (\Throwable $error) {
             echo json_encode(HttpResponses::serverError());

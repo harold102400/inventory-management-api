@@ -16,17 +16,20 @@ class ProductsModels {
         $this->conn = $instance->getConnection();
     }
 
-    public function getAllProducts(){
-        $sql = "SELECT * FROM $this->tableName";
+    public function getAllProducts(int $page, int $limit){
+        $offset = ( $page - 1 ) * $limit;
+        $sql = "SELECT * FROM $this->tableName LIMIT $limit OFFSET $offset;";
         $result = $this->conn->query($sql);
         if ($result) {
             $data = $result->fetchAll(PDO::FETCH_ASSOC);
             $countSql = "SELECT COUNT(*) as total FROM $this->tableName";
             $result = $this->conn->query($countSql);
-            $totalRecords = $result->fetch(PDO::FETCH_ASSOC)['total'];
+            $totalCount = (int)$result->fetch(PDO::FETCH_ASSOC)['total'];
             return [
                 'data' => $data,
-                'totalRecords' => $totalRecords
+                'totalCount' => $totalCount,
+                'page' => $page,
+                'limit' => $limit
             ];
         }
     }
