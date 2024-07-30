@@ -22,9 +22,11 @@ class ProductsModels {
         $sql = "SELECT * FROM $this->tableName";
 
         if (!empty($nameFilter)) {
-            ///PDO::quote es un método que se utiliza específicamente para escapar y citar valores de cadenas de caracteres para su uso en consultas SQL. 
-            ///Esto agrega comillas simples alrededor del valor $name y escapa cualquier carácter especial dentro del valor, asegurando que no pueda ser 
-            //utilizado para alterar la lógica de la consulta SQL.
+            /**
+             * PDO::quote es un método que se utiliza específicamente para escapar y citar valores de cadenas de caracteres para su uso en consultas SQL.
+             * Esto agrega comillas simples alrededor del valor $name y escapa cualquier carácter especial dentro del valor, asegurando que no pueda ser
+             * utilizado para alterar la lógica de la consulta SQL.
+             */
             $nameFilter = $this->conn->quote('%' . $nameFilter . '%');
             $sql.= " WHERE nombre LIKE $nameFilter";
         }
@@ -37,7 +39,10 @@ class ProductsModels {
             $countSql = "SELECT COUNT(*) as total FROM $this->tableName";
 
             if (!empty($nameFilter)) {
-                ///LIKE $nameFilter: Utiliza LIKE en SQL para comparar el campo nombre con el valor filtrado, permitiendo así buscar nombres que contengan la cadena especificada ($nameFilter).
+                /**
+                 * LIKE $nameFilter: Utiliza LIKE en SQL para comparar el campo nombre con el valor filtrado, 
+                 * permitiendo así buscar nombres que contengan la cadena especificada ($nameFilter).
+                 */
                 $countSql .= " WHERE nombre LIKE $nameFilter";
             }
 
@@ -52,7 +57,9 @@ class ProductsModels {
             ];
         }
     }
-///Modificada funcion de crear para que devuelva el codigo que se ha creado
+    /**
+     * Modificada funcion de crear para que devuelva el codigo que se ha creado
+     */
     public function create($data)
     {
         $sql = "INSERT INTO $this->tableName(codigo, nombre, tipo, marca, precio) VALUES (:codigo, :nombre, :tipo, :marca, :precio)";

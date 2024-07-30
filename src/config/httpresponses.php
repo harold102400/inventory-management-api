@@ -15,8 +15,9 @@ class HttpResponses {
         self::$message['message'] = $res;
         return self::$message;
     }
-
-    //modificada funcion created para que reciba el array de la respuesta despues de haberse creado un articulo
+/**
+ * modificada funcion created para que reciba el array de la respuesta despues de haberse creado un articulo
+ */
     public static function created(array $res)
     {
         http_response_code(201);
