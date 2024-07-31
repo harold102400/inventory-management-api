@@ -1,6 +1,6 @@
 <?php
 
-use Api\config\HttpResponses;
+use Api\helpers\HttpResponses;
 use Api\controllers\ProductController;
 
 $router = new \Bramus\Router\Router();

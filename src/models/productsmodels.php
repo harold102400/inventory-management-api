@@ -40,7 +40,7 @@ class ProductsModels {
 
             if (!empty($nameFilter)) {
                 /**
-                 * LIKE $nameFilter: Utiliza LIKE en SQL para comparar el campo nombre con el valor filtrado, 
+                 * LIKE $nameFilter: Se utiliza LIKE en SQL para comparar el campo nombre con el valor filtrado, 
                  * permitiendo así buscar nombres que contengan la cadena especificada ($nameFilter).
                  */
                 $countSql .= " WHERE nombre LIKE $nameFilter";

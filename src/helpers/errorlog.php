@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Api\config;
+namespace Api\helpers;
 
 date_default_timezone_set('America/Santo_domingo');
 

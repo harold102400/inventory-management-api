@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\config;
+namespace Api\helpers;
 
 class HttpResponses {
     public static $message = [

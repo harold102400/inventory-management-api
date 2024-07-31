@@ -3,8 +3,8 @@
 
 namespace Api\controllers;
 
-use Api\config\ErrorLog;
-use Api\config\HttpResponses;
+use Api\helpers\ErrorLog;
+use Api\helpers\HttpResponses;
 use Api\models\ProductsModels;
 
 class ProductController {
