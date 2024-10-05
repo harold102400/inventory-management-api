@@ -53,7 +53,9 @@ class ProductsModels {
             ];
         }
     }
-///Modificada funcion de crear para que devuelva el codigo que se ha creado
+    /**
+     * Modificada funcion de crear para que devuelva el codigo que se ha creado
+     */
     public function create($data)
     {
         $sql = "INSERT INTO $this->tableName(codigo, nombre, tipo, marca, precio) VALUES (:codigo, :nombre, :tipo, :marca, :precio)";
