@@ -12,7 +12,8 @@ class ProductController {
     {
         $page = (int)@$_GET['page'] ?? 1;
         $limit = (int)@$_GET['limit'] ?? 10;
-        $nameFilter = @$_GET['name'] ?? '';
+        $search = @$_GET['search'] ?? '';
+        //var_dump($search);
         if ($page <= 0) {
             $page = 1;
         }
@@ -24,7 +25,7 @@ class ProductController {
         }
         try {
             $products = new ProductsModels();
-            $data = $products->getAllProducts($page, $limit, $nameFilter);
+            $data = $products->getAllProducts($page, $limit, $search);
             echo json_encode($data);
         } catch (\Throwable $error) {
             echo json_encode(HttpResponses::serverError());
