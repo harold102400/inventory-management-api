@@ -1,6 +1,6 @@
 {
-    "name": "harold.montesdeoca/rest-api",
-    "description": "RESTAPI",
+    "name": "harold.montesdeoca/inventory-management-api",
+    "description": "Inventory Management",
     "autoload": {
         "psr-4": {
             "Api\\": "src/"
