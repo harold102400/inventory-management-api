@@ -7,7 +7,7 @@ use \PDO;
 
 class ProductsModels {
 
-    public $tableName = "articulos";
+    public $tableName = "products";
     public $conn;
 
     public function __construct()
@@ -28,7 +28,7 @@ class ProductsModels {
              * utilizado para alterar la lógica de la consulta SQL.
              */
             $search = $this->conn->quote('%' . $search . '%');
-            $sql.= " WHERE nombre LIKE $search";
+            $sql.= " WHERE name LIKE $search";
         }
         $sql.= " LIMIT $limit OFFSET $offset;";
         
@@ -43,7 +43,7 @@ class ProductsModels {
                  * LIKE $search: Se utiliza LIKE en SQL para comparar el campo nombre con el valor filtrado, 
                  * permitiendo así buscar nombres que contengan la cadena especificada ($search).
                  */
-                $countSql .= " WHERE nombre LIKE $search";
+                $countSql .= " WHERE name LIKE $search";
             }
 
 
@@ -63,17 +63,17 @@ class ProductsModels {
      */
     public function create($data)
     {
-        $sql = "INSERT INTO $this->tableName(codigo, nombre, tipo, marca, precio) VALUES (:codigo, :nombre, :tipo, :marca, :precio)";
+        $sql = "INSERT INTO $this->tableName(code, name, type, brand, price) VALUES (:code, :name, :type, :brand, :price)";
         $result = $this->conn->prepare($sql);
         if ($result) {
             $result->execute([
-                ":codigo" => $data["codigo"],
-                ":nombre" => $data["nombre"],
-                ":tipo" => $data["tipo"],
-                ":marca" => $data["marca"],
-                ":precio" => $data["precio"]
+                ":code" => $data["code"],
+                ":name" => $data["name"],
+                ":type" => $data["type"],
+                ":brand" => $data["brand"],
+                ":price" => $data["price"]
             ]);
-            return $this->getCodeFromDB($data["codigo"]);
+            return $this->getCodeFromDB($data["code"]);
         } else {
             echo "err";
         }
@@ -81,9 +81,9 @@ class ProductsModels {
 
     public function getCodeFromDB(string $code)
     {
-        $sql = "SELECT * FROM $this->tableName WHERE codigo = :codigo";
+        $sql = "SELECT * FROM $this->tableName WHERE code = :code";
         $result = $this->conn->prepare($sql);
-        $result->execute([":codigo" => $code]);
+        $result->execute([":code" => $code]);
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -102,16 +102,16 @@ class ProductsModels {
 
     public function update($data)
     {
-        $sql = "UPDATE $this->tableName SET codigo=:codigo, nombre=:nombre, tipo=:tipo, marca=:marca, precio=:precio WHERE id=:id";
+        $sql = "UPDATE $this->tableName SET code=:code, name=:name, type=:type, brand=:brand, price=:price WHERE id=:id";
         $result = $this->conn->prepare($sql);
         if ($result) {
             $result->execute([
                 "id"=> $data["id"],
-                ":codigo" => $data["codigo"],
-                ":nombre" => $data["nombre"],
-                ":tipo" => $data["tipo"],
-                ":marca" => $data["marca"],
-                ":precio" => $data["precio"]
+                ":code" => $data["code"],
+                ":name" => $data["name"],
+                ":type" => $data["type"],
+                ":brand" => $data["brand"],
+                ":price" => $data["price"]
             ]);
         }else {
             echo "err";

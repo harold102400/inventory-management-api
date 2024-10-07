@@ -1,6 +1,6 @@
 {
-    "name": "harold.montesdeoca/articulos-api",
-    "description": "API de articulos",
+    "name": "harold.montesdeoca/rest-api",
+    "description": "RESTAPI",
     "autoload": {
         "psr-4": {
             "Api\\": "src/"

@@ -37,24 +37,24 @@ class ProductController {
     {
         try {
             $allData = [
-                "codigo" => $data['codigo'],
-                "nombre" => $data['nombre'],
-                "tipo" => $data['tipo'],
-                "marca" => $data['marca'],
-                "precio" => $data['precio']
+                "code" => $data['code'],
+                "name" => $data['name'],
+                "type" => $data['type'],
+                "brand" => $data['brand'],
+                "price" => $data['price']
             ];
-            if ($allData["precio"] < 0) {
+            if ($allData["price"] < 0) {
                 /* $error = [
                     "status" => 400,
-                    "errorMessage" => "El precio no puede ser negativo."
+                    "errorMessage" => "El price no puede ser negativo."
                 ]; */
-                echo json_encode(HttpResponses::notFound("El precio no puede ser negativo."));
+                echo json_encode(HttpResponses::notFound("The price cannot be negative."));
                 return;
             }
             $products = new ProductsModels();
-            $existingProduct = $products->getCodeFromDb($data["codigo"]);
+            $existingProduct = $products->getCodeFromDb($data["code"]);
             if ($existingProduct) {
-                echo json_encode(HttpResponses::notFound("El codigo de este producto esta repetido!"));
+                echo json_encode(HttpResponses::notFound("The code for this product is duplicated!"));
                 return;
             }
             $product = $products->create($allData);
@@ -75,7 +75,7 @@ class ProductController {
                 echo json_encode($product);
                 return;
             } else {
-                echo json_encode(HttpResponses::notFound("el producto con el id $id no existe!"));
+                echo json_encode(HttpResponses::notFound("The product with ID $id does not exist!"));
             }
         } catch (\Throwable $error) {
             echo json_encode(HttpResponses::serverError());
@@ -89,16 +89,16 @@ class ProductController {
         try {
             $allData = [
                 "id" => $id,
-                "codigo" => $data['codigo'],
-                "nombre" => $data['nombre'],
-                "tipo" => $data['tipo'],
-                "marca" => $data['marca'],
-                "precio" => $data['precio']
+                "code" => $data['code'],
+                "name" => $data['name'],
+                "type" => $data['type'],
+                "brand" => $data['brand'],
+                "price" => $data['price']
             ];
 
             $products = new ProductsModels();
             $products->update($allData);
-            echo json_encode(HttpResponses::ok("Producto con codigo ".$data['codigo']. " ha sido actualizado"));
+            echo json_encode(HttpResponses::ok("Product with code " . $data['code'] . " has been updated."));
         } catch (\Throwable $error) {
             echo json_encode(HttpResponses::serverError());
             ErrorLog::showErrors();

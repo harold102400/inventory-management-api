@@ -41,7 +41,7 @@ $router->delete('/api/products/{id}', function($id) {
 });
 
 $router->set404(function() {
-    echo json_encode(HttpResponses::notFound("Esta ruta no existe!"));
+    echo json_encode(HttpResponses::notFound("Sorry, but the page you are looking for does not exist!"));
 });
 
 

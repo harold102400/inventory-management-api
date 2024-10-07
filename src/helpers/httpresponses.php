@@ -33,7 +33,7 @@ class HttpResponses {
         return self::$message;
     }
 
-    public static function notFound(string $res = 'Parece que estas perdido por favor verifica la documentacion')
+    public static function notFound(string $res = 'It seems that you are lost, please check the documentation')
     {
         http_response_code(404);
         self::$message['status'] = 404;
@@ -41,7 +41,7 @@ class HttpResponses {
         return self::$message;
     }
 
-    public static function serverError(string $res = 'Error interno del servidor')
+    public static function serverError(string $res = 'Internal Server Error')
     {
         http_response_code(500);
         self::$message['status'] = 500;
