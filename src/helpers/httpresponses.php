@@ -48,4 +48,12 @@ class HttpResponses {
         self::$message['message'] = $res;
         return self::$message;
     }
+
+    public static function unauthorizedUser(string $res = "Unauthorized")
+    {
+        http_response_code(403);
+        self::$message['status'] = 403;
+        self::$message['message'] = $res;
+        return self::$message;
+    }
 }
