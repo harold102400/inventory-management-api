@@ -2,6 +2,7 @@
 
 use Api\helpers\HttpResponses;
 use Api\controllers\ProductController;
+use Api\controllers\UserLoginController;
 
 $router = new \Bramus\Router\Router();
 
@@ -26,6 +27,13 @@ $router->post('/api/products', function() {
     $product = new ProductController();
     $product->create($data);
     //stdclass investigar//
+});
+
+$router->post('/api/auth', function(){
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+    $user = new UserLoginController();
+    $user->userLoginAuth($data);
 });
 
 $router->put('/api/products/{id}', function($id) {
