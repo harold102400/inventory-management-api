@@ -61,8 +61,8 @@ class ProductController {
                 return;
             }
             $products = new ProductsModels();
-            $existingProduct = $products->getCodeFromDb($data["code"]);
-            if ($existingProduct) {
+            $existing_product = $products->getCodeFromDb($data["code"]);
+            if ($existing_product) {
                 echo json_encode(HttpResponses::notFound("The code for this product is duplicated!"));
                 return;
             }
