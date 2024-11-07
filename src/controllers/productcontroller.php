@@ -8,6 +8,12 @@ use Api\helpers\HttpResponses;
 use Api\models\ProductsModels;
 
 class ProductController {
+    public $validate;
+    public function __construct()
+    {
+        $token = new UserLoginController();
+        $this->validate = $token->validateToken();
+    }
     public function getAllProducts()
     {
         $page = (int)@$_GET['page'] ?? 1;
@@ -35,6 +41,9 @@ class ProductController {
 
     public function create($data)
     {
+        if (!$this->validate) {
+            return;
+        }
         try {
             $allData = [
                 "code" => $data['code'],
@@ -86,6 +95,9 @@ class ProductController {
 
     public function update($id, $data)
     {
+        if (!$this->validate) {
+            return;
+        }
         try {
             $allData = [
                 "id" => $id,
@@ -108,6 +120,9 @@ class ProductController {
 
     public function delete($id)
     {
+        if (!$this->validate) {
+            return;
+        }
         try {
             $product = new ProductsModels();
             $product->delete($id);
