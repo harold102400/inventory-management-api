@@ -25,7 +25,7 @@ class UserLoginController
                 $key = "mykey";
                 $payload = [
                     'exp' => $now + 3600,
-                    'id' => 5
+                    'id' => $data_from_db['id']
                 ];
                 $jwt = JWT::encode($payload, $key, 'HS256');
                 $array = ["token" => $jwt, "display_name"=> $data_from_db['name']];
