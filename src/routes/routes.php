@@ -32,6 +32,13 @@ $router->post('/api/products', function() {
 $router->post('/api/auth', function(){
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
+    $new_user = new UserLoginController();
+    $new_user->createUser($data);
+});
+
+$router->post('/api/auth', function(){
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
     $user = new UserLoginController();
     $user->userLoginAuth($data);
 });

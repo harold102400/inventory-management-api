@@ -47,4 +47,26 @@ class UserLoginModel
             return $rows;
         }
     }
+
+    public function createUser(array $data_from_form)
+    {
+        $sql = "";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->execute([
+                "username" => $data_from_form['username'],
+                "name" => $data_from_form['name'],
+                "passoword" => $data_from_form['password']
+            ]);
+            return $this->getUsernameFromDB($data_from_form['username']);
+        }
+    }
+
+    public function getUsernameFromDB(string $username)
+    {
+        $sql = "";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([":username" => $username]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

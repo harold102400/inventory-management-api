@@ -91,4 +91,28 @@ class UserLoginController
         return $jwt_user;
     }
 
+    public function createUser($data_from_form)
+{
+    try {
+        $hashed_password = password_hash($data_from_form['password'], PASSWORD_DEFAULT);
+        $allData = [
+            "username" => $data_from_form['username'],
+            "name" => $data_from_form['name'],
+            "password" => $hashed_password
+        ];
+        $user = new UserLoginModel();
+        $existing_username = $user->getUsernameFromDB($data_from_form["username"]);
+        if ($existing_username) {
+            echo json_encode(HttpResponses::notFound("This username already exists!"));
+            return;
+        }
+        $new_user = $user->createUser($allData);
+        echo json_encode(HttpResponses::created($new_user));
+    } catch (\Throwable $error) {
+        echo json_encode(HttpResponses::serverError());
+        ErrorLog::showErrors();
+        error_log("Error message n" . $error);
+    }
+}
+
 }
