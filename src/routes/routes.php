@@ -29,7 +29,7 @@ $router->post('/api/products', function() {
     //stdclass investigar//
 });
 
-$router->post('/api/auth', function(){
+$router->post('/api/register', function(){
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     $new_user = new UserLoginController();
