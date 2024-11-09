@@ -18,6 +18,7 @@
         "robmorgan/phinx": "^0.16.5"
     },
     "scripts": {
+        "phinx-init": "./vendor/bin/phinx init ./src/config",
         "phinx-create": "./vendor/bin/phinx --configuration=\"./src/config/phinx.php\" create ",
         "phinx-migrate": "./vendor/bin/phinx --configuration=\"./src/config/phinx.php\" migrate ",
         "phinx-rollback": "./vendor/bin/phinx --configuration=\"./src/config/phinx.php\" rollback "    
